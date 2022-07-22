@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PersonalAccessToken::class, 'tokenable_id');
     }
+
+    public function get_logs()
+    {
+        return $this->hasMany(Log::class);
+    }
 }

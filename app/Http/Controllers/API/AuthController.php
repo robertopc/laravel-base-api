@@ -19,7 +19,7 @@ class AuthController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());       
+            return response()->json($validator->errors());
         }
 
         $user = User::create([
@@ -47,6 +47,8 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        dbLogs('USER LOGGED IN', 'With token: '. $token);
 
         return response()
             ->json(['message' => 'Hi '.$user->name.', welcome to home','access_token' => $token, 'token_type' => 'Bearer', ]);
